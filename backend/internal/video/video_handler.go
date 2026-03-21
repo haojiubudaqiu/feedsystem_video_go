@@ -38,14 +38,14 @@ func (vh *VideoHandler) PublishVideo(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	user, err := vh.accountService.FindByID(c.Request.Context(), authorId)
+	username, err := jwt.GetUsername(c)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 	video := &Video{
 		AuthorID:    authorId,
-		Username:    user.Username,
+		Username:    username,
 		Title:       req.Title,
 		Description: req.Description,
 		PlayURL:     req.PlayURL,

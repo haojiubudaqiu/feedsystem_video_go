@@ -124,3 +124,17 @@ func GetAccountID(c *gin.Context) (uint, error) {
 
 	return accountID, nil
 }
+
+func GetUsername(c *gin.Context) (string, error) {
+	val, exists := c.Get("username")
+	if !exists {
+		return "", errors.New("username not found")
+	}
+
+	username, ok := val.(string)
+	if !ok {
+		return "", errors.New("username has invalid type")
+	}
+
+	return username, nil
+}
